@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import classNames from 'classnames';
 
 const useStyles = createUseStyles({
   container: {
@@ -37,7 +36,7 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
   {
     const rotateLogos = async () =>
     {
-      let currentNumber = logoNumber;
+      let currentNumber = 0;
       setInterval(() => {
         currentNumber = (currentNumber + 1) >= activeTeam.logos.length ? 0 : currentNumber + 1
         setLogoNumber(currentNumber);
@@ -50,10 +49,10 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
     }
   }, [activeTeam]);
 
-  const setTeam = useCallback(() => 
+  const setTeam = () => 
   {
-    fetch(`http://192.168.20.23:5000/team/${mostRecentTeamId}`, {method: 'PUT'});
-  });
+    fetch(`${process.env.REACT_APP_API_URL}/team/${mostRecentTeamId}`, {method: 'PUT'});
+  };
 
   if (activeTeam === undefined)
   {
@@ -67,7 +66,9 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
           // activeTeam.logos.map(({secureUrl}) => (
           //   <img className={classes.logo} src={secureUrl} />
           // ))
-          <img className={classes.logo} src={activeTeam.logos[logoNumber].secureUrl} />
+          <img className={classes.logo} 
+            alt={`${activeTeam.fullName} Team Logo`} 
+            src={activeTeam.logos[logoNumber].secureUrl} />
         }
         {activeTeam.fullName}
       </div>

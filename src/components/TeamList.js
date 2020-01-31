@@ -79,8 +79,8 @@ const TeamList = ({name}) =>
         ))
       }
       {
-        teams.map(() => (
-          <div className={classes.empty}></div>
+        teams.map((team, index) => (
+          <div key={`ghost${team.id}}`} className={classes.empty}></div>
         ))
       }
     </div>
