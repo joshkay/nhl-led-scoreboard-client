@@ -41,7 +41,7 @@ const App = () =>
         <Switch>
           {
             NAVBAR_ITEMS.map(({path, component}) => (
-              <Route exact path={path} component={component} />
+              <Route key={path} exact path={path} component={component} />
             ))
           }
           <Route component={NotFoundPage} />

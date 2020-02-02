@@ -34,10 +34,11 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
 
   useEffect(() =>
   {
+    let interval;
     const rotateLogos = async () =>
     {
       let currentNumber = 0;
-      setInterval(() => {
+      interval = setInterval(() => {
         currentNumber = (currentNumber + 1) >= activeTeam.logos.length ? 0 : currentNumber + 1
         setLogoNumber(currentNumber);
       }, 1000);
@@ -47,6 +48,9 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
     {
       rotateLogos();
     }
+
+    return () => clearInterval(interval);
+    
   }, [activeTeam]);
 
   const setTeam = () => 
