@@ -5,8 +5,9 @@ import { Link, withRouter } from 'react-router-dom';
 const useStyles = createUseStyles({
   navbar: {
     overflow: 'hidden',
-    position: 'fixed',
-    bottom: 0,
+    //position: 'fixed',
+    //bottom: 0,
+    marginTop: 'auto',
     width: '100%',
     backgroundColor: 'white',
     height: 100

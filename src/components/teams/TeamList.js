@@ -7,6 +7,7 @@ const useStyles = createUseStyles({
     display: 'flex',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
+    paddingBottom: 35,
     '&:after': {
      content: '""',
      flex: 'auto'
@@ -21,7 +22,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const TeamList = ({name}) =>
+const TeamList = ({name, onClick}) =>
 {
   const classes = useStyles();
 
@@ -75,7 +76,11 @@ const TeamList = ({name}) =>
     <div className={classes.teamContainer}>
       {
         teams.map(team => (
-          <Team className={classes.team} key={team.id} {...team} />
+          <Team className={classes.team} 
+            key={team.id} 
+            team={team}
+            onClick={onClick}
+          />
         ))
       }
       {

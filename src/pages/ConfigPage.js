@@ -1,6 +1,6 @@
 import React from 'react';
-import BrightnessSlider from '../components/BrightnessSlider';
-import TeamList from '../components/TeamList';
+import BrightnessSlider from '../components/config/BrightnessSlider';
+import TeamList from '../components/teams/TeamList';
 
 const ConfigPage = () => (
   <React.Fragment>

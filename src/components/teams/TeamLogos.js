@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
   }
 });
 
-const Team = ({className, mostRecentTeamId, fullName, teams}) =>
+const Team = ({className, mostRecentTeamId, fullName, teams, rotateLogos}) =>
 {
   const classes = useStyles();
   const [activeTeam, setActiveTeam] = useState();
@@ -32,26 +32,29 @@ const Team = ({className, mostRecentTeamId, fullName, teams}) =>
     }
   }, [mostRecentTeamId, teams]);
 
-  useEffect(() =>
+  if (rotateLogos)
   {
-    let interval;
-    const rotateLogos = async () =>
+    useEffect(() =>
     {
-      let currentNumber = 0;
-      interval = setInterval(() => {
-        currentNumber = (currentNumber + 1) >= activeTeam.logos.length ? 0 : currentNumber + 1
-        setLogoNumber(currentNumber);
-      }, 1000);
-    }
+      let interval;
+      const rotateLogos = async () =>
+      {
+        let currentNumber = 0;
+        interval = setInterval(() => {
+          currentNumber = (currentNumber + 1) >= activeTeam.logos.length ? 0 : currentNumber + 1
+          setLogoNumber(currentNumber);
+        }, 1000);
+      }
 
-    if (activeTeam !== undefined)
-    {
-      rotateLogos();
-    }
+      if (activeTeam !== undefined)
+      {
+        rotateLogos();
+      }
 
-    return () => clearInterval(interval);
-    
-  }, [activeTeam]);
+      return () => clearInterval(interval);
+      
+    }, [activeTeam]);
+  }
 
   const setTeam = () => 
   {

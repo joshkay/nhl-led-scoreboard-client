@@ -1,9 +1,9 @@
 import React from 'react';
-import TeamList from '../components/TeamList';
+import TeamSettings from '../components/teams/TeamSettings';
 
 const TeamSettingsPage = () => (
   <React.Fragment>
-    <TeamList />
+    <TeamSettings />
   </React.Fragment>
 );
 
