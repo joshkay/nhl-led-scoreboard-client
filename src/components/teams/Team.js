@@ -16,7 +16,11 @@ const useStyles = createUseStyles({
     height: 200,
     '& img': {
       WebkitTouchCallout: 'none !important', 
-      WebkitUserSelect: 'none !important'
+      WebkitUserSelect: 'none !important',
+      KhtmlUserSelect: 'none',
+      MozUserSelect: 'none',
+      MsUserSelect: 'none',
+      userSelect: 'none'
     }
     
   },
