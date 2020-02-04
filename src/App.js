@@ -3,10 +3,11 @@ import { createUseStyles } from 'react-jss';
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import BottomNavbar from './components/nav/BottomNavbar';
 import ConfigPage from './pages/ConfigPage';
-import TeamSettingsPage from './pages/TeamSettingsPage';
+import TeamsPage from './pages/TeamsPage';
+import TeamConfigPage from './pages/TeamConfigPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { NHLApiProvider } from './context/NHLApiContext';
-import LEDApiContext from './context/LEDApiContext';
+import { LEDApiProvider } from './context/LEDApiContext';
 
 const useStyles = createUseStyles({
   app: {
@@ -32,7 +33,7 @@ const NAVBAR_ITEMS = [
   {
     name: 'Teams',
     path: '/teams',
-    component: TeamSettingsPage
+    component: TeamsPage
   },
   {
     name: 'Config',
@@ -47,7 +48,7 @@ const App = () =>
 
   return (
     <div className={classes.app}>
-      <LEDApiContext.Provider>
+      <LEDApiProvider>
         <NHLApiProvider>
           <BrowserRouter>
             <div className={classes.container}>
@@ -58,6 +59,7 @@ const App = () =>
                       <Route key={path} exact path={path} component={component} />
                     ))
                   }
+                  <Route path="/team/:name" component={TeamConfigPage} />
                   <Route component={NotFoundPage} />
                 </Switch>
               </main>
@@ -65,7 +67,7 @@ const App = () =>
             </div>
           </BrowserRouter>
         </NHLApiProvider>
-      </LEDApiContext.Provider>
+      </LEDApiProvider>
     </div>
   );
 }

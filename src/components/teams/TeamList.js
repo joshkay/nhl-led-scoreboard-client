@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Team from './Team';
 import { createUseStyles } from 'react-jss';
 import NHLApiContext from '../../context/NHLApiContext';
@@ -54,7 +54,7 @@ const TeamList = ({name, onClick}) =>
   return (
     <div className={classes.teamContainer}>
       {
-        teams.length && teams.map(team => (
+        teams && teams.length && teams.map(team => (
           <Team className={classes.team} 
             key={team.id} 
             team={team}
@@ -63,7 +63,7 @@ const TeamList = ({name, onClick}) =>
         ))
       }
       {
-        teams.length && teams.map((team, index) => (
+        teams && teams.length && teams.map((team, index) => (
           <div key={`ghost${team.id}}`} className={classes.empty}></div>
         ))
       }

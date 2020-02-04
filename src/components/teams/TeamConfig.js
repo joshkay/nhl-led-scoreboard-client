@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import NHLApiContext from '../../context/NHLApiContext';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    width: 200,
-    height: 200
+    paddingBottom: 35,
+    overflow: 'auto',
+    display: 'flex'
   },
   logo: {
     width: 200,
@@ -18,23 +14,53 @@ const useStyles = createUseStyles({
   }
 });
 
-const TeamConfig = ({ activeTeam }) =>
+const TeamConfig = ({ teamCommonName, onClick }) =>
 {
   const classes = useStyles();
+
+  const {
+    data: teams 
+  } = useContext(NHLApiContext);
+
+  const [team, setTeam] = useState();
+  const [activeTeam, setActiveTeam] = useState();
+  
+  useEffect(() => {
+    if (teams && teams.length)
+    {
+      const team = teams.find((team) => (
+        team.teamCommonName.toLowerCase() === teamCommonName
+      ));
+      setTeam(team);
+    }
+  }, [teamCommonName, teams]);
+
+  // useEffect(() =>
+  // {
+  //   const { mostRecentTeamId, teams } = team;
+
+  //   setActiveTeam(teams.find(({id}) => (
+  //     id === mostRecentTeamId
+  //   )));
+  // }, [team]);
   
   return (
-    <div className={className}>
-      <div className={classes.container} onClick={setTeam}>
-        {
-          // activeTeam.logos.map(({secureUrl}) => (
-          //   <img className={classes.logo} src={secureUrl} />
-          // ))
-          <img className={classes.logo} 
-            alt={`${activeTeam.fullName} Team Logo`} 
-            src={activeTeam.logos[logoNumber].secureUrl} />
-        }
-        {activeTeam.fullName}
-      </div>
+    <div className={classes.container} onClick={onClick}>
+      {activeTeam && activeTeam.fullName}
+      {
+        team && team.teams.map(({logos}) => (
+          logos.map(({secureUrl}, index) => (
+            <img key={index} 
+              className={classes.logo} 
+              alt={activeTeam !== undefined ? 
+                `${activeTeam.fullName} Team Logo` : 
+                'Team Logo'
+              } 
+              src={secureUrl} 
+            />
+          ))
+        ))
+      }
     </div>
   );
 }
