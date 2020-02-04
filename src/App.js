@@ -5,7 +5,7 @@ import BottomNavbar from './components/nav/BottomNavbar';
 import ConfigPage from './pages/ConfigPage';
 import TeamSettingsPage from './pages/TeamSettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import NHLApiContext from './context/NHLApiContext';
+import { NHLApiProvider } from './context/NHLApiContext';
 import LEDApiContext from './context/LEDApiContext';
 
 const useStyles = createUseStyles({
@@ -48,7 +48,7 @@ const App = () =>
   return (
     <div className={classes.app}>
       <LEDApiContext.Provider>
-        <NHLApiContext.Provider>
+        <NHLApiProvider>
           <BrowserRouter>
             <div className={classes.container}>
               <main>
@@ -64,7 +64,7 @@ const App = () =>
               <BottomNavbar items={NAVBAR_ITEMS} />
             </div>
           </BrowserRouter>
-        </NHLApiContext.Provider>
+        </NHLApiProvider>
       </LEDApiContext.Provider>
     </div>
   );
